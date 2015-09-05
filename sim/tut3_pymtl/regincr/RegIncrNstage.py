@@ -30,6 +30,15 @@ class RegIncrNstage( Model ):
     # to connect the stages together.
     # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+    # Connect input port to first reg_incr in chain
+    
+    s.connect( s.in_, s.reg_incrs[0].in_ )
+    
+    # Connect reg_incr in chain
+    
+    for i in xrange( nstages - 1):
+      s.connect( s.reg_incrs[i].out, s.reg_incrs[i+1].in_ )    
+    
     # Connect last reg_incr in chain to output port
 
     s.connect( s.reg_incrs[-1].out, s.out )
